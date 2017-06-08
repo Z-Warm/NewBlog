@@ -8,3 +8,9 @@ BloggerBlogBundle_about:
     defaults: { _controller: "BloggerBlogBundle:Page:about" }
     requirements:
          methods:  GET
+BloggerBlogBundle_blog_show:
+    path:  /{id}
+    defaults: { _controller: "BloggerBlogBundle:Blog:show" }
+    requirements:
+        methods:  GET
+        id: \d+

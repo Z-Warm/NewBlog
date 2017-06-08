@@ -2,5 +2,24 @@
 {% extends 'BloggerBlogBundle:Page:layout.html.twig' %}
 
 {% block body %}
-    Blog homepage
+    {% for blog in blogs %}
+        <article class="blog">
+
+            <header>
+                <h2><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">{{ blog.name }}</a></h2>
+            </header>
+
+            <div class="snippet">
+                <p>{{ blog.content(500) }}</p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">Continue reading...</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>Comments: -</p>
+
+            </footer>
+        </article>
+    {% else %}
+        <p>There are no blog entries for symblog</p>
+    {% endfor %}
 {% endblock %}
