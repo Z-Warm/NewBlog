@@ -11,7 +11,19 @@ class PageController extends Controller
     //{
    //     return $this->render('BloggerBlogBundle:Page:index.html.twig');
    // }
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
 
+        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getLatestBlogs();
+
+        return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
+            'blogs' => $blogs
+        ));
+    }
+/*
     public function aboutAction()
     {
         return $this->render('BloggerBlogBundle:Page:about.html.twig');
@@ -31,6 +43,6 @@ class PageController extends Controller
         return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
             'blogs' => $blogs
         ));
-    }
+    }*/
 }
 ?>

@@ -12,9 +12,11 @@ namespace Blogger\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
  * @ORM\Table(name="blog")
+ * @ORM\HasLifecycleCallbacks()
  */
+
 
 class Blog
 {
@@ -26,10 +28,10 @@ class Blog
     protected $id;
 
     /**
-     * @ORM\Column
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Categoryes", inversedBy="comments")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    protected $category_id;
+    protected $category;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -46,7 +48,16 @@ class Blog
      */
     protected $file;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
+    protected $comments;
 
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+
+    }
 
     /**
      * Get id
@@ -151,5 +162,61 @@ class Blog
     public function getCategoryId()
     {
         return $this->category_id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Blogger\BlogBundle\Entity\Categoryes $category
+     * @return Blog
+     */
+    public function setCategory(\Blogger\BlogBundle\Entity\Categoryes $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Blogger\BlogBundle\Entity\Categoryes 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     * @return Blog
+     */
+    public function addComment(\Blogger\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Blogger\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

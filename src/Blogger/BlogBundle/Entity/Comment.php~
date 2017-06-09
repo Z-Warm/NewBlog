@@ -1,0 +1,56 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: YZub
+ * Date: 09.06.2017
+ * Time: 16:12
+ */
+// src/Blogger/BlogBundle/Entity/Comment.php
+
+namespace Blogger\BlogBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CommentRepository")
+ * @ORM\Table(name="comments")
+ * @ORM\HasLifecycleCallbacks
+ */
+class Comment
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $author;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="comments")
+     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     */
+    protected $blog;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $create_at;
+
+    public function __construct()
+    {
+        $this->setCreate_at(new \DateTime());
+
+    }
+
+
+}

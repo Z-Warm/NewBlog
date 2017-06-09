@@ -12,9 +12,11 @@ namespace Blogger\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
  * @ORM\Table(name="blog")
+ * @ORM\HasLifecycleCallbacks()
  */
+
 
 class Blog
 {
@@ -26,12 +28,10 @@ class Blog
     protected $id;
 
     /**
-     * @ORM\Column
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="Categoryes", inversedBy="comments")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    protected $category_id;
-
-
+    protected $category;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -48,7 +48,16 @@ class Blog
      */
     protected $file;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
+    protected $comments;
 
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+
+    }
 
     /**
      * Get id
@@ -101,9 +110,12 @@ class Blog
      *
      * @return string 
      */
-    public function getContent()
+    public function getContent($length = null)
     {
-        return $this->content;
+        if (false === is_null($length) && $length > 0)
+            return substr($this->content, 0, $length);
+        else
+            return $this->content;
     }
 
     /**
@@ -127,5 +139,28 @@ class Blog
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set category_id
+     *
+     * @param string $categoryId
+     * @return Blog
+     */
+    public function setCategoryId($categoryId)
+    {
+        $this->category_id = $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get category_id
+     *
+     * @return string 
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
     }
 }
