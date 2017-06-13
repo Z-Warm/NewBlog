@@ -48,10 +48,9 @@ class Comment
 
     public function __construct()
     {
-        $this->setCreate_at(new \DateTime());
+        $this->setCreateAt(new \DateTime());
 
     }
-
 
 
     /**

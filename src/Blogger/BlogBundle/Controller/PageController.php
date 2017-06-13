@@ -16,33 +16,17 @@ class PageController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
-            ->getLatestBlogs();
+        $categoryes = $em->getRepository('BloggerBlogBundle:Category')
+            ->getLatestCategoryes();
 
         return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
-            'blogs' => $blogs
+            'categoryes' => $categoryes
         ));
     }
-/*
-    public function aboutAction()
+  public function aboutAction()
     {
         return $this->render('BloggerBlogBundle:Page:about.html.twig');
     }
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()
-            ->getManager();
 
-        $blogs = $em->createQueryBuilder()
-            ->select('b')
-            ->from('BloggerBlogBundle:Blog',  'b')
-            ->addOrderBy('b.name', 'DESC')
-            ->getQuery()
-            ->getResult();
-
-        return $this->render('BloggerBlogBundle:Page:index.html.twig', array(
-            'blogs' => $blogs
-        ));
-    }*/
 }
 ?>

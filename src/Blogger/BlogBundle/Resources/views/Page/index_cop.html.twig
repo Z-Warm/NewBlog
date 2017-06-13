@@ -2,16 +2,16 @@
 {% extends 'BloggerBlogBundle:Page:layout.html.twig' %}
 
 {% block body %}
-    {% for category in categoryes %}
+    {% for blog in blogs %}
         <article class="blog">
 
             <header>
-                <h2><a href="{{ path('BloggerBlogBundle_category_show', { 'id': category.id }) }}">{{ category.name }}</a></h2>
+                <h2><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">{{ blog.name }}</a></h2>
             </header>
 
             <div class="snippet">
-                <p>{{ category.description(500) }}</p>
-                <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': category.id }) }}">Continue reading...</a></p>
+                <p>{{ blog.content(500) }}</p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">Continue reading...</a></p>
             </div>
 
         </article>

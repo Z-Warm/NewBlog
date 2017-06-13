@@ -14,23 +14,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
  * Blog controller.
  */
-class CategoryesController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Show a blog entry
      */
-    public function showAction($id)
+    public function showAction($category)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $blog = $em->getRepository('BloggerBlogBundle:Categoryes')->find($id);
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($category);
 
-        if (!$blog) {
-            throw $this->createNotFoundException('Unable to find Categoryes.');
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find Category.');
         }
 
-        return $this->render('BloggerBlogBundle:Categoryes:show.html.twig', array(
-            'blog'      => $categoryes,
+        return $this->render('BloggerBlogBundle:Category:show.html.twig', array(
+            'categoryes' => $category,
         ));
     }
 }

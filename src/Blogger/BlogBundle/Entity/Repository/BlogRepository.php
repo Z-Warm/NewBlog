@@ -14,7 +14,7 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('b')
             ->select('b')
-            ->addOrderBy('b.name', 'DESC');
+            ->addOrderBy('b.name', 'ASC');
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);

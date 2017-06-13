@@ -14,3 +14,9 @@ BloggerBlogBundle_blog_show:
     requirements:
         methods:  GET
         id: \d+
+BloggerBlogBundle_category_show:
+    path:  /{id}
+    defaults: { _controller: "BloggerBlogBundle:Category:show" }
+    requirements:
+        methods:  GET
+        id: \d+

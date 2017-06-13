@@ -28,7 +28,7 @@ class Blog
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categoryes", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
@@ -56,7 +56,7 @@ class Blog
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-
+        
     }
 
     /**
@@ -167,10 +167,10 @@ class Blog
     /**
      * Set category
      *
-     * @param \Blogger\BlogBundle\Entity\Categoryes $category
+     * @param \Blogger\BlogBundle\Entity\Category $category
      * @return Blog
      */
-    public function setCategory(\Blogger\BlogBundle\Entity\Categoryes $category = null)
+    public function setCategory(\Blogger\BlogBundle\Entity\Category $category = null)
     {
         $this->category = $category;
 
@@ -180,7 +180,7 @@ class Blog
     /**
      * Get category
      *
-     * @return \Blogger\BlogBundle\Entity\Categoryes 
+     * @return \Blogger\BlogBundle\Entity\Category
      */
     public function getCategory()
     {

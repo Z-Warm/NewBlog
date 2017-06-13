@@ -12,10 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="categoryes")
+ * @ORM\Table(name="category")
  */
 
-class Categoryes
+class Category
 {
     /**
      * @ORM\Id
@@ -34,6 +34,11 @@ class Categoryes
      */
     protected $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
+     */
+    protected $blogs;
+
 
     /**
      * Get id
@@ -49,7 +54,7 @@ class Categoryes
      * Set name
      *
      * @param string $name
-     * @return Categoryes
+     * @return Category
      */
     public function setName($name)
     {
@@ -72,7 +77,7 @@ class Categoryes
      * Set description
      *
      * @param string $description
-     * @return Categoryes
+     * @return Category
      */
     public function setDescription($description)
     {
@@ -89,5 +94,45 @@ class Categoryes
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add blogs
+     *
+     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     * @return Category
+     */
+    public function addBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    {
+        $this->blogs[] = $blogs;
+
+        return $this;
+    }
+
+    /**
+     * Remove blogs
+     *
+     * @param \Blogger\BlogBundle\Entity\Blog $blogs
+     */
+    public function removeBlog(\Blogger\BlogBundle\Entity\Blog $blogs)
+    {
+        $this->blogs->removeElement($blogs);
+    }
+
+    /**
+     * Get blogs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBlogs()
+    {
+        return $this->blogs;
     }
 }
