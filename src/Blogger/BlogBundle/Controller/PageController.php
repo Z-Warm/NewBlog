@@ -23,6 +23,7 @@ class PageController extends Controller
             'categoryes' => $categoryes
         ));
     }
+
   public function aboutAction()
     {
         return $this->render('BloggerBlogBundle:Page:about.html.twig');

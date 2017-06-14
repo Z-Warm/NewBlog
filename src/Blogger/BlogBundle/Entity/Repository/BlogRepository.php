@@ -14,7 +14,7 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('b')
             ->select('b')
-            ->addOrderBy('b.name', 'ASC');
+            ->addOrderBy('b.name', 'DESC');
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);
@@ -22,4 +22,22 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function getLatestBlogsByCategory($category)
+    {
+
+        $qb = $this->createQueryBuilder('b')
+            ->select('b')
+            ->where('b.category = :category_id')
+            ->addOrderBy('b.name', 'DESC')
+            ->setParameter('category_id', $category);
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+
+
+
 }

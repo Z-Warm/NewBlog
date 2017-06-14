@@ -9,14 +9,20 @@ BloggerBlogBundle_about:
     requirements:
          methods:  GET
 BloggerBlogBundle_blog_show:
-    path:  /{id}
+    path:   /{id}
     defaults: { _controller: "BloggerBlogBundle:Blog:show" }
     requirements:
         methods:  GET
         id: \d+
-BloggerBlogBundle_category_show:
-    path:  /{id}
-    defaults: { _controller: "BloggerBlogBundle:Category:show" }
+BloggerBlogBundle_allcategoryes:
+    path:    /{id}
+    defaults: { _controller: "BloggerBlogBundle:Category:index" }
     requirements:
         methods:  GET
         id: \d+
+BloggerBlogBundle_allblogs:
+    path:     category/{id}
+    defaults: { _controller: "BloggerBlogBundle:Category:categoryshow" }
+    requirements:
+         methods:  GET
+         id: \d+

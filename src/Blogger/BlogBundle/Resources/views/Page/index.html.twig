@@ -6,16 +6,16 @@
         <article class="blog">
 
             <header>
-                <h2><a href="{{ path('BloggerBlogBundle_category_show', { 'id': category.id }) }}">{{ category.name }}</a></h2>
+                <h2><a href="{{ path('BloggerBlogBundle_allblogs', { 'id': category.id }) }}">{{ category.name }}</a></h2>
             </header>
 
             <div class="snippet">
                 <p>{{ category.description(500) }}</p>
-                <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': category.id }) }}">Continue reading...</a></p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_allblogs', { 'id': category.id }) }}">Continue reading...</a></p>
             </div>
 
         </article>
     {% else %}
-        <p>There are no blog entries for symblog</p>
+        <p>There are no category entries.</p>
     {% endfor %}
 {% endblock %}

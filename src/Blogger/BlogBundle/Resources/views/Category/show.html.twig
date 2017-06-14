@@ -10,8 +10,13 @@
         </header>
 
         <div>
-            <p>{{ blog.description }}</p>
+            <p>{{ category.description }}</p>
         </div>
     </article>
-
+    <section class="blog">
+        <section class="blog">
+            <p>Blogs fot this category:</p>
+            {% include 'BloggerBlogBundle:Category:showblogs.html.twig' with { 'blogs': blogs } %}
+        </section>
+    </section>
 {% endblock %}

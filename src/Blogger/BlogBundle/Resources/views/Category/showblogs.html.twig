@@ -1,21 +1,17 @@
-{# src/Blogger/BlogBundle/Resources/views/Page/index.html.twig #}
-{% extends 'BloggerBlogBundle:Page:layout.html.twig' %}
-
-{% block body %}
+{# src/Blogger/BlogBundle/Resources/views/Category/showblogs.html.twig #}
     {% for blog in blogs %}
-        <article class="blog">
+        <article class="">
 
             <header>
                 <h2><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">{{ blog.name }}</a></h2>
             </header>
 
-            <div class="snippet">
+            <div class="">
                 <p>{{ blog.content(500) }}</p>
                 <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">Continue reading...</a></p>
             </div>
 
         </article>
     {% else %}
-        <p>There are no blog entries for symblog</p>
+        <p>There are no blog entries for this category</p>
     {% endfor %}
-{% endblock %}

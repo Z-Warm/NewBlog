@@ -17,20 +17,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CategoryController extends Controller
 {
     /**
-     * Show a blog entry
-     */
-    public function showAction($category)
+     * Show a category entry
+    */
+    public function categoryshowAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $category = $em->getRepository('BloggerBlogBundle:Category')->find($category);
+        $em = $this->getDoctrine()
+            ->getManager();
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($id);
+        $blogs = $em->getRepository('BloggerBlogBundle:Blog')
+            ->getLatestBlogsByCategory($id);
 
         if (!$category) {
-            throw $this->createNotFoundException('Unable to find Category.');
+            throw $this->createNotFoundException('Unable to find Blog post.');
         }
 
         return $this->render('BloggerBlogBundle:Category:show.html.twig', array(
-            'categoryes' => $category,
+            'category' => $category,
+            'blogs' => $blogs
         ));
     }
 }
