@@ -10,6 +10,9 @@
 namespace Blogger\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Blogger\BlogBundle\Entity\Category;
+use Blogger\BlogBundle\Form\CategoryType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Blog controller.
@@ -36,4 +39,35 @@ class CategoryController extends Controller
             'blogs' => $blogs
         ));
     }
+    public function newAction()
+    {
+        $category = new Category();
+        $form   = $this->createForm(new CategoryType(), $category);
+        return $this->render('BloggerBlogBundle:Category:form.html.twig', array(
+            'category' => $category,
+            'form'   => $form->createView()
+        ));
+    }
+
+    public function createAction(Request $request)
+    {
+        $category  = new Category();
+        $form    = $this->createForm(new CategoryType(), $category);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage')
+            );
+        }
+        return $this->render('BloggerBlogBundle:Blog:create.html.twig', array(
+            'category' => $category,
+            'form'    => $form->createView()
+        ));
+    }
+
 }

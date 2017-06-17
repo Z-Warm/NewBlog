@@ -37,4 +37,9 @@ BloggerBlogBundle_blog_create:
     defaults: { _controller: "BloggerBlogBundle:Blog:create" }
     requirements:
         methods:  POST
-        blog_id: \d+
+        category_id: \d+
+BloggerBlogBundle_category_create:
+    path:   /category/
+    defaults: { _controller: "BloggerBlogBundle:Category:create" }
+    requirements:
+        methods:  POST

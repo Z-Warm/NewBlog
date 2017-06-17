@@ -18,4 +18,8 @@
     {% else %}
         <p>There are no category entries.</p>
     {% endfor %}
+    <section class="previous-comments">
+        <h3>Add Category</h3>
+        {{ render(controller('BloggerBlogBundle:Category:new',{ 'val': 0 })) }}
+    </section>
 {% endblock %}

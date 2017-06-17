@@ -86,7 +86,6 @@ class BlogController extends Controller
 
             return $this->redirect($this->generateUrl('BloggerBlogBundle_allblogs', array(
                 'id' => $blog->getCategory()->getId()))
-               // '#blog-' . $blog->getId()
             );
         }
         return $this->render('BloggerBlogBundle:Blog:create.html.twig', array(
