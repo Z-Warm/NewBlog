@@ -1,0 +1,21 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/index.html.twig #}
+{% extends 'BloggerBlogBundle:Page:layout.html.twig' %}
+
+{% block body %}
+    {% for category in categoryes %}
+        <article class="blog">
+
+            <header>
+                <h2><a href="{{ path('BloggerBlogBundle_allblogs', { 'id': category.id }) }}">{{ category.name }}</a></h2>
+            </header>
+
+            <div class="snippet">
+                <p>{{ category.description(500) }}</p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_allblogs', { 'id': category.id }) }}">Continue reading...</a></p>
+            </div>
+
+        </article>
+    {% else %}
+        <p>There are no category entries.</p>
+    {% endfor %}
+{% endblock %}
