@@ -33,7 +33,7 @@ BloggerBlogBundle_comment_create:
         methods:  POST
         blog_id: \d+
 BloggerBlogBundle_blog_create:
-    path:  /blog/{category_id}
+    path:   /blog/{category_id}
     defaults: { _controller: "BloggerBlogBundle:Blog:create" }
     requirements:
         methods:  POST

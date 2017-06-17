@@ -27,7 +27,7 @@ class BlogController extends Controller
         $em = $this->getDoctrine()
             ->getManager();
 
-        $category = $em->getRepository('BloggerBlogBundle:Blog')->find($category_id);
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($category_id);
 
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Category.');
@@ -56,7 +56,7 @@ class BlogController extends Controller
             'comments'  => $comments
         ));
     }
-/*
+
     public function newAction($category_id)
     {
         $category = $this->getCategory($category_id);
@@ -85,8 +85,8 @@ class BlogController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerBlogBundle_allblogs', array(
-                    'id' => $category->getCategory()->getId())) .
-                '#comment-' . $blog->getId()
+                'id' => $blog->getCategory()->getId()))
+               // '#blog-' . $blog->getId()
             );
         }
         return $this->render('BloggerBlogBundle:Blog:create.html.twig', array(
@@ -94,5 +94,5 @@ class BlogController extends Controller
             'form'    => $form->createView()
         ));
     }
-    */
+
 }

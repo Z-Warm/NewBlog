@@ -169,7 +169,8 @@ class Blog
      * @param \Blogger\BlogBundle\Entity\Category $category
      * @return Blog
      */
-    public function setCategory(\Blogger\BlogBundle\Entity\Category $category = null)
+    //public function setCategory(\Blogger\BlogBundle\Entity\Category $category = null)
+    public function setCategory($category )
     {
         $this->category = $category;
 
