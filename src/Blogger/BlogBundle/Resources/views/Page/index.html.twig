@@ -12,6 +12,7 @@
             <div class="snippet">
                 <p>{{ category.description(500) }}</p>
                 <p class="continue"><a href="{{ path('BloggerBlogBundle_allblogs', { 'id': category.id }) }}">Continue reading...</a></p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_categoryedit', { 'id': category.id }) }}">Edit...</a></p>
             </div>
 
         </article>
