@@ -1,7 +1,6 @@
 <?php
 
 /**
- * Created by PhpStorm.
  * User: YZub
  * Date: 09.06.2017
  * Time: 11:31
@@ -25,14 +24,11 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
 
     public function getLatestBlogsByCategory($category)
     {
-
         $qb = $this->createQueryBuilder('b')
             ->select('b')
             ->where('b.category = :category_id')
             ->addOrderBy('b.name', 'DESC')
             ->setParameter('category_id', $category);
-
-
         return $qb->getQuery()
             ->getResult();
     }

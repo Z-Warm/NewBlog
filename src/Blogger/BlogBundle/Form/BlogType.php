@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class BlogType extends AbstractType
 {
+    private $isedit = 0;
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,7 +18,9 @@ class BlogType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
+            ->add('file', 'file', array('label' => 'Attached File (2Mb Max)', 'data_class' => null))
         ;
+
     }
     
     /**
@@ -37,4 +40,5 @@ class BlogType extends AbstractType
     {
         return 'blogger_blogbundle_blog';
     }
+
 }

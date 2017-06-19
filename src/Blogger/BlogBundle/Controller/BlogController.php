@@ -69,7 +69,7 @@ class BlogController extends Controller
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog.');
         }
-        $form   = $this->createForm(new BlogType(), $blog);
+        $form   = $this->createForm(new BlogType(1), $blog);
         return $this->render('BloggerBlogBundle:Blog:edit.html.twig', array(
             'blog' => $blog,
             'form'   => $form->createView()
