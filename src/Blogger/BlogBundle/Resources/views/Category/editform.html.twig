@@ -1,0 +1,5 @@
+{{ form_start(form, { 'action': path('BloggerBlogBundle_category_update', { 'id': category.id }), 'method': 'POST', 'attr': {'class': 'blogger'} }) }}
+    {{ form_widget(form) }}
+<p>
+    <input type="submit" value="Edit Category">
+</p>

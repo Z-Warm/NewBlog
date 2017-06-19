@@ -7,15 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PageController extends Controller
 {
-    //public function indexAction()
-    //{
-   //     return $this->render('BloggerBlogBundle:Page:index.html.twig');
-   // }
+    /**
+     * Show all Categoryes
+     */
     public function indexAction()
     {
-        $em = $this->getDoctrine()
-            ->getManager();
-
+        $em = $this->getDoctrine()->getManager();
         $categoryes = $em->getRepository('BloggerBlogBundle:Category')
             ->getLatestCategoryes();
 
@@ -23,7 +20,9 @@ class PageController extends Controller
             'categoryes' => $categoryes
         ));
     }
-
+    /**
+     * Show About page
+     */
   public function aboutAction()
     {
         return $this->render('BloggerBlogBundle:Page:about.html.twig');

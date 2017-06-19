@@ -19,9 +19,7 @@ class CommentController extends Controller
      */
     protected function getBlog($blog_id)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
-
+        $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
 
         if (!$blog) {
@@ -30,23 +28,23 @@ class CommentController extends Controller
 
         return $blog;
     }
-
+    /**
+     * Show new Comments
+     */
     public function newAction($blog_id)
     {
         $blog = $this->getBlog($blog_id);
-       // $em = $this->getDoctrine()
-       //     ->getManager();
-       // $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
         $comment = new Comment();
         $comment->setBlog($blog);
         $form   = $this->createForm(new CommentType(), $comment);
-
-       // return $this->render('BloggerBlogBundle:Comment:form.html.twig', array(
-           // 'comment' => $comment,
-           // 'form'   => $form->createView()
-       // ));
+        return $this->render('BloggerBlogBundle:Comment:form.html.twig', array(
+            'comment' => $comment,
+            'form'   => $form->createView()
+        ));
     }
-
+    /**
+     * Create new Comments
+     */
     public function createAction(Request $request, $blog_id)
     {
         $blog = $this->getBlog($blog_id);
@@ -57,7 +55,10 @@ class CommentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // TODO: Persist the comment entity
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($comment);
+            $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
                     'id' => $comment->getBlog()->getId())) .
