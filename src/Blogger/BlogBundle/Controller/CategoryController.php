@@ -86,7 +86,7 @@ class CategoryController extends Controller
                 ->getManager();
             $em->persist($category);
             $em->flush();
-
+            $category->getBlogs();
             return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage')
             );
         }
@@ -119,7 +119,23 @@ class CategoryController extends Controller
         }
         return $this->render('BloggerBlogBundle:Category:edit.html.twig', array(
             'category' => $category,
-            'form'    => $editForm->createView()
+            'form'    => $editForm->createView(),
         ));
     }
+    /**
+     * Delete Category by id
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+            $em->remove($category);
+            $em->flush();
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage'));
+    }
+
 }

@@ -144,4 +144,22 @@ class BlogController extends Controller
             'form'    => $editForm->createView()
         ));
     }
+
+    /**
+     * Delete Blog by id
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
+
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog entity.');
+        }
+        $em->remove($blog);
+        $em->flush();
+        return $this->redirect($this->generateUrl('BloggerBlogBundle_allblogs', array(
+            'id' => $blog->getCategory()->getId()))
+        );
+    }
 }

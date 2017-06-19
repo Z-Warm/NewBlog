@@ -57,6 +57,16 @@ BloggerBlogBundle_category_update:
     defaults: { _controller: "BloggerBlogBundle:Category:update" }
     requirements:
         methods:  POST
+BloggerBlogBundle_category_delete:
+    path:   delete/category/{id}
+    defaults: { _controller: "BloggerBlogBundle:Category:delete" }
+    requirements:
+        methods:  GET
+BloggerBlogBundle_blog_delete:
+    path:   delete/blog/{id}
+    defaults: { _controller: "BloggerBlogBundle:Blog:delete" }
+    requirements:
+        methods:  GET
 BloggerBlogBundle_blog_update:
     path:   update/blog/{id}
     defaults: { _controller: "BloggerBlogBundle:Blog:update" }

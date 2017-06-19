@@ -3,3 +3,7 @@
 <p>
     <input type="submit" value="Edit Category">
 </p>
+
+{% if category.blogs  is  empty %}
+    <p class="continue"><a href="{{ path('BloggerBlogBundle_category_delete', { 'id': category.id }) }}">Delete...</a></p>
+{% endif %}
