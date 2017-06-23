@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Comment;
 use Blogger\BlogBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Comment controller.
@@ -72,5 +74,32 @@ class CommentController extends Controller
         ));
     }
 
+    public function ajaxcreateAction(Request $request){
+       //$output=array();
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isXmlHttpRequest()) {
+         //   $themes = $em->getRepository('WebSiteBackBundle:theme');
+          //  $themes = $themes->findAll();
+          //  foreach ($themes as $theme){
+//
+            //    $output[]=array($theme->getId(),$theme->getName());
+           // }
+            /*   var_dump($themes);
+               $json = json_encode($themes);
+
+               $response = new Response();*/
+            //            return $response->setContent($json);
+            $response = new Response();
+            $myData = array("ddd", "ddd2");
+            $data = json_encode($myData);
+
+            $response->headers->set('Content-Type', 'application/json');
+            $response->setContent($data);
+
+            return $response;
+
+        }
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
 }
 

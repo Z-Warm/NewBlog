@@ -1,7 +1,41 @@
 {# src/Blogger/BlogBundle/Resources/views/Comment/form.html.twig #}
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#button").bind("click", function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ path('remplir_ville') }}',
+                    data: {'idReg' : 190},
+                    dataType: 'json',
+                    beforeSend: function (msg) {
+                        $("#information").text ("Waiting for data1...");
+                    },
+                    success: function (data) {
+                       
+                        alert(data);
+
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</head>
+
 {{ form_start(form, { 'action': path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.blog.id }), 'method': 'POST', 'attr': {'class': 'blogger'} }) }}
 
     {{ form_widget(form) }}
 <p>
     <input type="submit" value="Submit">
 </p>
+
+<p>
+    <input id ="button" type="Button" value="doAjax">
+</p>
+<div id="information"></div>
+

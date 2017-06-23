@@ -72,4 +72,15 @@ BloggerBlogBundle_blog_update:
     defaults: { _controller: "BloggerBlogBundle:Blog:update" }
     requirements:
         methods:  POST
+BloggerBlogBundle_ajax_comment_create:
+        path:     ajaxcreate/comment
+        defaults: { _controller: "BloggerBlogBundle:Comment:ajaxcreate", format: json}
+        condition: "request.isXmlHttpRequest()"
+        methods: [POST]
+remplir_ville:
+    path: /comment/remplirVille
+    defaults: { _controller: BloggerBlogBundle:Comment:ajaxcreate , format: json }
+    methods: [POST]
+
+
 
