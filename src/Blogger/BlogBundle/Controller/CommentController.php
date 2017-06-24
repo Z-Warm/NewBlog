@@ -49,18 +49,26 @@ class CommentController extends Controller
      */
     public function createAction(Request $request, $blog_id)
     {
-        $blog = $this->getBlog($blog_id);
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+        if ($request->isXmlHttpRequest()) {
+            $response = new Response();
+            $myData = array("ddd", "ddd2", $blog_id);
+            $data = json_encode($myData);
 
-        $comment  = new Comment();
-        $comment->setBlog($blog);
-        $form    = $this->createForm(new CommentType(), $comment);
-        $form->handleRequest($request);
+            $response->headers->set('Content-Type', 'application/json');
+            $response->setContent($data);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()
+            /*$blog = $this->getBlog($blog_id);
+            $comment  = new Comment();
+            $comment->setBlog($blog);
+            $form    = $this->createForm(new CommentType(), $comment);
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()
                 ->getManager();
-            $em->persist($comment);
-            $em->flush();
+                $em->persist($comment);
+                $em->flush();
 
             return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
                     'id' => $comment->getBlog()->getId())) .
@@ -71,7 +79,10 @@ class CommentController extends Controller
         return $this->render('BloggerBlogBundle:Comment:create.html.twig', array(
             'comment' => $comment,
             'form'    => $form->createView()
-        ));
+         ));
+            */
+        }
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
 
     public function ajaxcreateAction(Request $request){
@@ -89,8 +100,33 @@ class CommentController extends Controller
 
                $response = new Response();*/
             //            return $response->setContent($json);
+            //$blog_id = $request->request->get('blogId');
+            $blog_id = 10;
+            //$requestform = $request->request->get('form');
+            //$blog_id = 10;
+            //$blog = $this->getBlog($blog_id);
+            /*
+
+            */
+            $blog = $this->getBlog($blog_id);
+
+            $comment  = new Comment();
+            $comment->setBlog($blog);
+            $form    = $this->createForm(new CommentType(), $comment);
+           // $form->handleRequest($request->get('form'));
+            $validform = false;
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()
+                    ->getManager();
+                $em->persist($comment);
+                $em->flush();
+                $validform = true;
+
+            }
+
             $response = new Response();
-            $myData = array("ddd", "ddd2");
+            $myData = array("ddd", "ddd2", $blog_id, $validform,$_POST);
             $data = json_encode($myData);
 
             $response->headers->set('Content-Type', 'application/json');

@@ -1,41 +1,64 @@
 {# src/Blogger/BlogBundle/Resources/views/Comment/form.html.twig #}
-<head>
+{% block body %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
-
+        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.blog.id }) }}';
         $(document).ready(function () {
-            $("#button").bind("click", function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ path('remplir_ville') }}',
-                    data: {'idReg' : 190},
-                    dataType: 'json',
-                    beforeSend: function (msg) {
-                        $("#information").text ("Waiting for data1...");
-                    },
-                    success: function (data) {
-                       
-                        alert(data);
+            $(document).ready(function() {
+               /* $('#commentform').submit(function(){
+                    $.post(currurl, $("#commentform").serialize(),  function(response) {
+                        $('#commentform').hide('slow');
+                        $('#information').html(response);
+                    });
+                    return false;
+                });*/
+                /*$('#commentform').submit(function(e) {
 
-                    }
+                    e.preventDefault();
+                    var formSerialize = $(this).serialize();
+
+                    $.post(url, formSerialize, function(response) {
+                        $("#information").text ("Waiting for data...");
+                        //alert(waiting);
+                        alert("vfdvdfvd");
+                    }, 'JSON');
+                });*/
+
+                $('#commentform').submit( function (response) {
+                    var formSerialize = $(this).serialize();
+
+                    $.ajax ({
+                        url:currurl,
+                        type: "POST",
+                        data: formSerialize,
+                        dataType: "JSON",
+                        beforeSend: function (){
+                            $("#information").text ("Waiting for data...");
+                        },
+                        success: function (data){
+
+                                alert("Name is busy");
+
+                        }
+                    });
                 });
+
+
+
             });
         });
 
 
     </script>
 
-</head>
 
-{{ form_start(form, { 'action': path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.blog.id }), 'method': 'POST', 'attr': {'class': 'blogger'} }) }}
 
+{{ form_start(form, {'id':'commentform', 'method': 'POST', 'attr': {'class': 'blogger'} }) }}
     {{ form_widget(form) }}
 <p>
     <input type="submit" value="Submit">
+    <div id="information" text ="text"></div>
 </p>
 
-<p>
-    <input id ="button" type="Button" value="doAjax">
-</p>
-<div id="information"></div>
 
+{% endblock %}
