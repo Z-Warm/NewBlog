@@ -1,4 +1,5 @@
 {# src/Blogger/BlogBundle/Resources/views/Category/showblogs.html.twig #}
+
     {% for blog in blogs %}
         <article class="">
 
@@ -9,6 +10,7 @@
             <div class="">
                 <p>{{ blog.content(500) }}</p>
                 <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id }) }}">Continue reading...</a></p>
+                <p class="continue"><a href="{{ path('BloggerBlogBundle_blogedit', { 'id': blog.id }) }}">Edit...</a></p>
             </div>
 
         </article>

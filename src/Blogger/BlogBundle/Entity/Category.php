@@ -103,6 +103,7 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**

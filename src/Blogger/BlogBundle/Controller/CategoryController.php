@@ -38,10 +38,10 @@ class CategoryController extends Controller
                 'category' => $category,
                 'blogs' => $blogs
             ));
-
-
     }
-
+    /**
+     * Show a category edit form
+     */
     public function categoryeditAction($id)
     {
         $em = $this->getDoctrine()
@@ -60,11 +60,11 @@ class CategoryController extends Controller
         ));
 
     }
-
-
+    /**
+     * Show new Category
+     */
     public function newAction()
     {
-
         $category = new Category();
         $form   = $this->createForm(new CategoryType(), $category);
         return $this->render('BloggerBlogBundle:Category:form.html.twig', array(
@@ -72,30 +72,9 @@ class CategoryController extends Controller
             'form'   => $form->createView()
         ));
     }
-
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()
-           ->getManager();
-        $category = $em->getRepository('BloggerBlogBundle:Category')->find($id);
-        $form   = $this->createForm(new CategoryType(), $category);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()
-                ->getManager();
-            $em->persist($category);
-            $em->flush();
-
-        return $this->render('BloggerBlogBundle:Category:editform.html.twig', array(
-            'category' => $category,
-            'form'   => $form->createView()
-        ));
-        }
-        return $this->render('BloggerBlogBundle:Category:edit.html.twig', array(
-            'category' => $category,
-            'form'    => $form->createView()
-        ));
-    }
-
+    /**
+     * Create new Category
+     */
     public function createAction(Request $request)
     {
         $category  = new Category();
@@ -107,7 +86,7 @@ class CategoryController extends Controller
                 ->getManager();
             $em->persist($category);
             $em->flush();
-
+            $category->getBlogs();
             return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage')
             );
         }
@@ -115,6 +94,48 @@ class CategoryController extends Controller
             'category' => $category,
             'form'    => $form->createView()
         ));
+    }
+    /**
+     * Update exist Category by id
+     */
+    public function updateAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+
+        $editForm = $this->createForm(new CategoryType(), $category);
+        $request = $this->getRequest();
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage'));
+        }
+        return $this->render('BloggerBlogBundle:Category:edit.html.twig', array(
+            'category' => $category,
+            'form'    => $editForm->createView(),
+        ));
+    }
+    /**
+     * Delete Category by id
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = $em->getRepository('BloggerBlogBundle:Category')->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+            $em->remove($category);
+            $em->flush();
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_homepage'));
     }
 
 }

@@ -32,7 +32,6 @@ class BlogController extends Controller
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Category.');
         }
-
         return $category;
     }
 
@@ -57,6 +56,28 @@ class BlogController extends Controller
         ));
     }
 
+    /**
+     * Show edit Blog form
+     */
+    public function blogeditAction($id)
+    {
+        $em = $this->getDoctrine()
+            ->getManager();
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
+
+
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog.');
+        }
+        $form   = $this->createForm(new BlogType(1), $blog);
+        return $this->render('BloggerBlogBundle:Blog:edit.html.twig', array(
+            'blog' => $blog,
+            'form'   => $form->createView()
+        ));
+    }
+    /**
+     * Show new Blog
+     */
     public function newAction($category_id)
     {
         $category = $this->getCategory($category_id);
@@ -68,11 +89,12 @@ class BlogController extends Controller
             'form'   => $form->createView()
         ));
     }
-
+    /**
+     * Create new Blog
+     */
     public function createAction(Request $request, $category_id)
     {
         $category = $this->getcategory($category_id);
-
         $blog  = new Blog();
         $blog->setCategory($category);
         $form    = $this->createForm(new BlogType(), $blog);
@@ -93,5 +115,51 @@ class BlogController extends Controller
             'form'    => $form->createView()
         ));
     }
+    /**
+     * Update exist Blog by id
+     */
+    public function updateAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
 
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog entity.');
+        }
+
+        $editForm = $this->createForm(new BlogType(), $blog);
+        $request = $this->getRequest();
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->persist($blog);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('BloggerBlogBundle_allblogs', array(
+                'id' => $blog->getCategory()->getId()))
+            );
+        }
+        return $this->render('BloggerBlogBundle:Blog:edit.html.twig', array(
+            'blog' => $blog,
+            'form'    => $editForm->createView()
+        ));
+    }
+
+    /**
+     * Delete Blog by id
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($id);
+
+        if (!$blog) {
+            throw $this->createNotFoundException('Unable to find Blog entity.');
+        }
+        $em->remove($blog);
+        $em->flush();
+        return $this->redirect($this->generateUrl('BloggerBlogBundle_allblogs', array(
+            'id' => $blog->getCategory()->getId()))
+        );
+    }
 }

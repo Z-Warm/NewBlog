@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Comment;
 use Blogger\BlogBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Comment controller.
@@ -19,56 +21,54 @@ class CommentController extends Controller
      */
     protected function getBlog($blog_id)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
-
+        $em = $this->getDoctrine()->getManager();
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
-
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
-
         return $blog;
     }
-
+    /**
+     * Show new Comments
+     */
     public function newAction($blog_id)
     {
         $blog = $this->getBlog($blog_id);
         $comment = new Comment();
         $comment->setBlog($blog);
-        $form   = $this->createForm(new CommentType(), $comment);
+        $form   = $this->createForm(new CommentType());
         return $this->render('BloggerBlogBundle:Comment:form.html.twig', array(
             'comment' => $comment,
             'form'   => $form->createView()
         ));
     }
-
+    /**
+     * Create new Comments
+     */
     public function createAction(Request $request, $blog_id)
     {
-        $blog = $this->getBlog($blog_id);
-
-        $comment  = new Comment();
-        $comment->setBlog($blog);
-        $form    = $this->createForm(new CommentType(), $comment);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()
-                ->getManager();
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                    'id' => $comment->getBlog()->getId())) .
-                '#comment-' . $comment->getId()
-            );
+        if ($request->isXmlHttpRequest()) {
+			$em = $this->getDoctrine()->getEntityManager();
+            $blog = $this->getBlog($blog_id);        
+			$comment  = new Comment();
+            $comment->setBlog($blog);
+            $form    = $this->createForm(new CommentType(), $comment);
+            $form->handleRequest($request);
+			
+            if ($form->isValid()) {
+                /*Insert data and commit:*/
+				$em->persist($comment);
+                $em->flush();
+				/*Sending response:*/
+				$response = new Response();
+				$myData = ("Adde successfull!");
+				$data = json_encode($myData);
+				$response->headers->set('Content-Type', 'application/json');
+				$response->setContent($data);
+				return $response;		
+			}		
         }
-
-        return $this->render('BloggerBlogBundle:Comment:create.html.twig', array(
-            'comment' => $comment,
-            'form'    => $form->createView()
-        ));
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
-
 }
 
