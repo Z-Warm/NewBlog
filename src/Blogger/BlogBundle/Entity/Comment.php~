@@ -162,7 +162,7 @@ class Comment
         $metadata->addPropertyConstraint('author', new NotBlank(array(
             'message' => 'You must enter your name'
         )));
-        $metadata->addPropertyConstraint('comments', new NotBlank(array(
+        $metadata->addPropertyConstraint('content', new NotBlank(array(
             'message' => 'You must enter a comment'
         )));
     }

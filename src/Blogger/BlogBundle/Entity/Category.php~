@@ -9,6 +9,8 @@
 namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategoryRepository")
@@ -101,6 +103,7 @@ class Category
     public function __construct()
     {
         $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -134,5 +137,15 @@ class Category
     public function getBlogs()
     {
         return $this->blogs;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('name', new NotBlank(array(
+            'message' => 'You must enter category name'
+        )));
+        $metadata->addPropertyConstraint('description', new NotBlank(array(
+            'message' => 'You must enter a description'
+        )));
     }
 }

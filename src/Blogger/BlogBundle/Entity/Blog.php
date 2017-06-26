@@ -48,7 +48,10 @@ class Blog
 
     /**
      * @ORM\Column(type="blob")
-     */
+	*/
+	/** @Assert\File(
+     *maxSize = "2M")
+     */ 
     protected $file;
 
     /**
