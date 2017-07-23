@@ -1,0 +1,51 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Iurii
+ * Date: 23.07.2017
+ * Time: 17:06
+ */
+
+namespace Blogger\BlogBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+/**
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategCommentRepository")
+ * @ORM\Table(name="categorycomments")
+ * @ORM\HasLifecycleCallbacks
+ */
+
+class CategComment
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $author;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="categorycomments")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    protected $category;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $create_at;
+
+}

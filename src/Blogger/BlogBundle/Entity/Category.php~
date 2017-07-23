@@ -41,6 +41,11 @@ class Category
      */
     protected $blogs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CategComment", mappedBy="category")
+     */
+    protected $comments;
+
 
     /**
      * Get id

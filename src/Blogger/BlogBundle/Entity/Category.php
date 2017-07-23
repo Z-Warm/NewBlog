@@ -41,6 +41,11 @@ class Category
      */
     protected $blogs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CategComment", mappedBy="category")
+     */
+    protected $comments;
+
 
     /**
      * Get id
@@ -147,5 +152,38 @@ class Category
         $metadata->addPropertyConstraint('description', new NotBlank(array(
             'message' => 'You must enter a description'
         )));
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $comments
+     * @return Category
+     */
+    public function addComment(\Blogger\BlogBundle\Entity\CategComment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $comments
+     */
+    public function removeComment(\Blogger\BlogBundle\Entity\CategComment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

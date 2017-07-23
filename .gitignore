@@ -10,3 +10,8 @@
 /vendor/
 /bin/
 /composer.phar
+
+.idea
+.vagrant
+.DS_Store
+Vagrantfile
