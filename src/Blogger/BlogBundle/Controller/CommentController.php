@@ -54,21 +54,52 @@ class CommentController extends Controller
             $comment->setBlog($blog);
             $form    = $this->createForm(new CommentType(), $comment);
             $form->handleRequest($request);
-			
+
             if ($form->isValid()) {
                 /*Insert data and commit:*/
 				$em->persist($comment);
                 $em->flush();
 				/*Sending response:*/
 				$response = new Response();
-				$myData = ("Adde successfull!");
+				$myData = ("Added successfull!");
 				$data = json_encode($myData);
 				$response->headers->set('Content-Type', 'application/json');
 				$response->setContent($data);
-				return $response;		
-			}		
+				return $response;
+			}
         }
         return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
+    /**
+     * Create new Comments
+     */
+    public function create2Action(Request $request, $blog_id)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $blog = $this->getBlog($blog_id);
+            $comment  = new Comment();
+            $comment->setBlog($blog);
+            $form    = $this->createForm(new CommentType(), $comment);
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                /*Insert data and commit:*/
+                $em->persist($comment);
+                $em->flush();
+                /*Sending response:*/
+                $response = new Response();
+                $myData = ("Adde successfull!");
+                $data = json_encode($myData);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
+    }
+
 }
+
+
 

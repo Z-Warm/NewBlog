@@ -42,11 +42,11 @@ BloggerBlogBundle_comment_create:
         methods:  POST
         blog_id: \d+
 BloggerBlogBundle_categ_comment_create:
-    path:  /comment/{category_id}
+    path:  comment/{category_id}
     defaults: { _controller: "BloggerBlogBundle:CategComment:create", format: json }
     requirements:
         methods:  POST
-        blog_id: \d+
+        category_id: \d+
 BloggerBlogBundle_blog_create:
     path:   /blog/{category_id}
     defaults: { _controller: "BloggerBlogBundle:Blog:create" }

@@ -11,7 +11,6 @@ namespace Blogger\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Category;
-use Blogger\BlogBundle\Entity\CategComment;
 use Blogger\BlogBundle\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 

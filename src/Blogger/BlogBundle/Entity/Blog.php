@@ -31,7 +31,7 @@ class Blog
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="blogs")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;

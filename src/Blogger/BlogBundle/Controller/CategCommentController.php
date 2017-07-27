@@ -26,7 +26,7 @@ class CategCommentController extends Controller
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('BloggerBlogBundle:Category')->find($category_id);
         if (!$category) {
-            throw $this->createNotFoundException('Unable to find Category post.');
+            throw $this->createNotFoundException('Unable to find Category');
         }
         return $category;
     }
@@ -35,6 +35,7 @@ class CategCommentController extends Controller
      */
     public function newAction($category_id)
     {
+
         $category = $this->getCategory($category_id);
         $comment = new CategComment();
         $comment->setCategory($category);
@@ -43,39 +44,33 @@ class CategCommentController extends Controller
             'comment' => $comment,
             'form'   => $form->createView()
         ));
+
+
     }
-    /**
-     * Create new Comments
-     */
+
     public function createAction(Request $request, $category_id)
     {
-        echo("start");
         if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $category = $this->getCategory($category_id);
-            $comment  = new CategComment();
-            $comment->setCategory($category);
-            $form    = $this->createForm(new CategCommentType(), $comment);
-            $form->handleRequest($request);
+            //$em = $this->getDoctrine()->getEntityManager();
+            //$category = $this->getCategory($category_id);
+            //$categcomment  = new CategComment();
+            //$categcomment->setCategory($category);
+            //$form    = $this->createForm(new CategCommentType(), $categcomment);
+           // $form->handleRequest($request);
+
             $response = new Response();
+            $myData = ("Categ Comment Added successfull!");
+            $data = json_encode($myData);
+            $response->headers->set('Content-Type', 'application/json');
+            $response->setContent($data);
+            return $response;
+
             if ($form->isValid()) {
                 /*Insert data and commit:*/
-                $em->persist($comment);
+                $em->persist($categcomment);
                 $em->flush();
                 /*Sending response:*/
-
-                $myData = ("Added successfull!");
-                $data = json_encode($myData);
-                $response->headers->set('Content-Type', 'application/json');
-                $response->setContent($data);
-
-            } else {
-                $myData = ("Not added!");
-                $data = json_encode($myData);
-                $response->setContent($data);
-
             }
-            return $response;
         }
         return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }

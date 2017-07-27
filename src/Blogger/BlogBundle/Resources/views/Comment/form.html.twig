@@ -2,7 +2,7 @@
 {% block body %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
-        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.blog.id }) }}';   
+        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : 1 }) }}';
             $(document).ready(function() {
                 $('#commentform').submit( function (response) {
                     var formSerialize = $(this).serialize();

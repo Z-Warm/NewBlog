@@ -1,5 +1,7 @@
-{# src/Blogger/BlogBundle/Resources/views/Comment/form.html.twig #}
-{% block sidebar %}
+{# src/Blogger/BlogBundle/Resources/views/CategComment/form.html.twig #}
+{% block body %}
+    <h1>categcomment!!!</h1>
+    <div id="information" text ="text"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
         var currurl = '{{ path('BloggerBlogBundle_categ_comment_create' , { 'category_id' : comment.category.id }) }}';
@@ -12,7 +14,7 @@
                         data: formSerialize,
                         dataType: "JSON",
                         beforeSend: function (){
-                            $("#information").text ("Waiting for data...");
+                            $("#information").text ("Waiting for data1...");
                         },
                         success: function (data){
 							$("#information").text (data);
@@ -21,10 +23,10 @@
                 });
             });    
     </script>
-{{ form_start(form, {'attr': {'class': 'blogger', 'id':'categcommentform'} }) }}
+{{ form_start(form, {'attr': {'class': 'blogger', 'id':'commentform'} }) }}
     {{ form_widget(form) }}
 <p>
-    <input type="submit" value="Submit">
-    <div id="information" text ="text"></div>
+    <input type="submit" value="Add comment for category">
+
 </p>
 {% endblock %}

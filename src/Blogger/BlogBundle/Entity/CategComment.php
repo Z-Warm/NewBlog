@@ -38,7 +38,7 @@ class CategComment
     protected $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="categorycomments")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="comments")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
@@ -48,6 +48,12 @@ class CategComment
      */
     protected $create_at;
 
+    /*Set current datetime for new comment*/
+    public function __construct()
+    {
+        $this->setCreateAt(new \DateTime());
+
+    }
 
     /**
      * Get id

@@ -48,6 +48,7 @@ class Comment
      */
     protected $create_at;
 
+    /*Set current datetime for new comment*/
     public function __construct()
     {
         $this->setCreateAt(new \DateTime());
