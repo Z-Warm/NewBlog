@@ -18,8 +18,21 @@
     <section class="blog">
         <section class="blog">
             <p>Blogs fot this category:</p>
-            {% include 'BloggerBlogBundle:Category:showblogs.html.twig' with { 'blogs': blogs } %}
+            {#% include 'BloggerBlogBundle:Category:showblogs.html.twig' with { 'blogs': blogs } %#}
         </section>
     </section>
 
+{% endblock %}
+
+
+{% block sidebar %}
+    <h2>CategComments:</h2>
+    <section class="comments" id="comments">
+        <h3>Comments:</h3>
+        {% include 'BloggerBlogBundle:CategComment:index.html.twig' with { 'comments': comments  } %}
+        <section class="previous-comments">
+            <h3>Add Comment for Category</h3>
+            {{ render(controller('BloggerBlogBundle:CategComment:new',{ 'category_id': category.id })) }}
+        </section>
+    </section>
 {% endblock %}

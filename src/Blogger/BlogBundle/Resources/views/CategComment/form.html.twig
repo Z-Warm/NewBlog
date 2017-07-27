@@ -1,11 +1,11 @@
-{# src/Blogger/BlogBundle/Resources/views/Comment/form.html.twig #}
-{% block body %}
-      <div id="information" text ="text"></div>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+{# src/Blogger/BlogBundle/Resources/views/CategComment/form.html.twig #}
+{% block sidebar %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
-        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.category.id }) }}';   
+        var currurl = '{{ path('BloggerBlogBundle_categ_comment_create' , { 'category_id' : comment.category.id }) }}';
             $(document).ready(function() {
-                $('#commentform').submit( function (response) {
+		
+                $('#categcommentform').submit( function (response) {
                     var formSerialize = $(this).serialize();
                     $.ajax ({
                         url:currurl,
@@ -22,13 +22,13 @@
                 });
             });    
     </script>
-{{ form_start(form, {'attr': {'class': 'blogger', 'id':'commentform'} }) }}
- {{ form_widget(form) }}
-<p>
-    <input type="submit" value="Submit">
-  
-</p>
-   
+{{ form_start(form, {'attr': {'class': 'blogger', 'id':'categcommentform'} }) }}
 
+{{ form_widget(form) }}
+<p>
+    <input type="submit" value="Submit" >
+    <div id="information" text ="text"></div>
+	<button onclick="$('#categcommentform').submit()"></button>
+</p>
 
 {% endblock %}

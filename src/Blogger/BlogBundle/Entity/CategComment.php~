@@ -1,11 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: YZub
- * Date: 09.06.2017
- * Time: 16:12
+ * User: Iurii
+ * Date: 23.07.2017
+ * Time: 17:06
  */
-// src/Blogger/BlogBundle/Entity/Comment.php
 
 namespace Blogger\BlogBundle\Entity;
 
@@ -14,11 +13,12 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CommentRepository")
- * @ORM\Table(name="comments")
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CategCommentRepository")
+ * @ORM\Table(name="categorycomments")
  * @ORM\HasLifecycleCallbacks
  */
-class Comment
+
+class CategComment
 {
     /**
      * @ORM\Id
@@ -38,22 +38,21 @@ class Comment
     protected $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="comments")
-     * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="categorycomments")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    protected $blog;
+    protected $category;
 
     /**
      * @ORM\Column(type="datetime")
      */
     protected $create_at;
 	
-	/*Constructor set current date*/
+ 	/*Constructor set current date*/  
     public function __construct()
     {
         $this->setCreateAt(new \DateTime());
     }
-
 
     /**
      * Get id
@@ -69,7 +68,7 @@ class Comment
      * Set author
      *
      * @param string $author
-     * @return Comment
+     * @return CategComment
      */
     public function setAuthor($author)
     {
@@ -92,7 +91,7 @@ class Comment
      * Set content
      *
      * @param string $content
-     * @return Comment
+     * @return CategComment
      */
     public function setContent($content)
     {
@@ -115,7 +114,7 @@ class Comment
      * Set create_at
      *
      * @param \DateTime $createAt
-     * @return Comment
+     * @return CategComment
      */
     public function setCreateAt($createAt)
     {
@@ -135,26 +134,26 @@ class Comment
     }
 
     /**
-     * Set blog
+     * Set category
      *
-     * @param \Blogger\BlogBundle\Entity\Blog $blog
-     * @return Comment
+     * @param \Blogger\BlogBundle\Entity\Category $category
+     * @return CategComment
      */
-    public function setBlog(\Blogger\BlogBundle\Entity\Blog $blog = null)
+    public function setCategory(\Blogger\BlogBundle\Entity\Category $category = null)
     {
-        $this->blog = $blog;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get blog
+     * Get category
      *
-     * @return \Blogger\BlogBundle\Entity\Blog 
+     * @return \Blogger\BlogBundle\Entity\Category 
      */
-    public function getBlog()
+    public function getCategory()
     {
-        return $this->blog;
+        return $this->category;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)

@@ -2,7 +2,7 @@
 
 {% block title %}Add Comment{% endblock%}
 
-{% block body %}
-    <h1>Add comment for blog post "{{ comment.blog.name }}"</h1>
+{% block sidebar %}
+    <h1>Add comment for category "{{ category.name }}"</h1>
     {% include 'BloggerBlogBundle:CategComment:form.html.twig' with { 'form': form } %}
 {% endblock %}

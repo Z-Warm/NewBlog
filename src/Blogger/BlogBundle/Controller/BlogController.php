@@ -114,6 +114,7 @@ class BlogController extends Controller
             'blog' => $blog,
             'form'    => $form->createView()
         ));
+		
     }
     /**
      * Update exist Blog by id

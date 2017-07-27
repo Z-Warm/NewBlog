@@ -41,6 +41,11 @@ class Category
      */
     protected $blogs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CategComment", mappedBy="category")
+     */
+    protected $categorycomments;
+
 
     /**
      * Get id
@@ -147,5 +152,71 @@ class Category
         $metadata->addPropertyConstraint('description', new NotBlank(array(
             'message' => 'You must enter a description'
         )));
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $comments
+     * @return Category
+     */
+    public function addComment(\Blogger\BlogBundle\Entity\CategComment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $comments
+     */
+    public function removeComment(\Blogger\BlogBundle\Entity\CategComment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add categorycomments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $categorycomments
+     * @return Category
+     */
+    public function addCategorycomment(\Blogger\BlogBundle\Entity\CategComment $categorycomments)
+    {
+        $this->categorycomments[] = $categorycomments;
+
+        return $this;
+    }
+
+    /**
+     * Remove categorycomments
+     *
+     * @param \Blogger\BlogBundle\Entity\CategComment $categorycomments
+     */
+    public function removeCategorycomment(\Blogger\BlogBundle\Entity\CategComment $categorycomments)
+    {
+        $this->categorycomments->removeElement($categorycomments);
+    }
+
+    /**
+     * Get categorycomments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategorycomments()
+    {
+        return $this->categorycomments;
     }
 }

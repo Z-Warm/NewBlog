@@ -11,6 +11,7 @@ namespace Blogger\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Category;
+use Blogger\BlogBundle\Entity\CategComment;
 use Blogger\BlogBundle\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,13 +31,17 @@ class CategoryController extends Controller
         $blogs = $em->getRepository('BloggerBlogBundle:Blog')
             ->getLatestBlogsByCategory($id);
 
+        $comments = $em->getRepository('BloggerBlogBundle:CategComment')
+            ->getCommentsForCategory($category->getId());
+
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Category.');
         }
 
             return $this->render('BloggerBlogBundle:Category:show.html.twig', array(
                 'category' => $category,
-                'blogs' => $blogs
+                'blogs' => $blogs,
+                'comments' => $comments
             ));
     }
     /**

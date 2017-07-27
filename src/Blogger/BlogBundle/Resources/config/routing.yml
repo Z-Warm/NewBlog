@@ -37,10 +37,16 @@ BloggerBlogBundle_allblogs:
          id: \d+
 BloggerBlogBundle_comment_create:
     path:  /comment/{blog_id}
-    defaults: { _controller: "BloggerBlogBundle:Comment:create", format: json }
+    defaults: { _controller: "BloggerBlogBundle:Comment:create2", format: json }
     requirements:
         methods:  POST
         blog_id: \d+
+BloggerBlogBundle_categ_comment_create:
+    path: /comment/{category_id}
+    defaults: { _controller: "BloggerBlogBundle:CategComment:create", format: json }
+    requirements:
+        methods:  POST
+        category_id: \d+
 BloggerBlogBundle_blog_create:
     path:   /blog/{category_id}
     defaults: { _controller: "BloggerBlogBundle:Blog:create" }
@@ -72,10 +78,7 @@ BloggerBlogBundle_blog_update:
     defaults: { _controller: "BloggerBlogBundle:Blog:update" }
     requirements:
         methods:  POST
-BloggerBlogBundle_ajax_comment_create:
-    path: /comment/ajaxcomment
-    defaults: { _controller: BloggerBlogBundle:Comment:ajaxcreate , format: json }
-    methods: [POST]
+ 
 
 
 

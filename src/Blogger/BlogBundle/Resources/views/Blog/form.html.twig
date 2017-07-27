@@ -1,6 +1,6 @@
 {# src/Blogger/BlogBundle/Resources/views/Blog/form.html.twig #}
-{{ form_start(form, { 'action': path('BloggerBlogBundle_blog_create' , { 'category_id' : blog.category.id }), 'method': 'POST', 'attr': {'class': 'blogger'} }) }}
+{{ form_start(form, { 'action': path('BloggerBlogBundle_blog_create' , { 'category_id' : blog.category.id }), 'method': 'POST', 'attr': {'class': 'blogger',  'id':'blogform'} }) }}
     {{ form_widget(form) }}
 <p>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add blog" form="blogform">
 </p>
