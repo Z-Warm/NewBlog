@@ -12,6 +12,7 @@ namespace Blogger\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\CommentRepository")
@@ -29,11 +30,13 @@ class Comment
 
     /**
      * @ORM\Column(type="string")
+	 * @Assert\NotBlank()
      */
     protected $author;
 
     /**
      * @ORM\Column(type="text")
+	 * @Assert\NotBlank()
      */
     protected $content;
 

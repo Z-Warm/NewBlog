@@ -34,6 +34,7 @@ class CommentController extends Controller
      * @param $category_id
      * @return \Symfony\Component\HttpFoundation\Response
      */
+	 /*
     protected function getCategory($category_id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -43,14 +44,13 @@ class CommentController extends Controller
         }
         return $category;
     }	
-	
+	*/
 	
     /**
      * Show new Comments
      */
     public function newAction($blog_id)
     {
-		//if($blog_id<0){$blog_id = -$blog_id;}
         $blog = $this->getBlog($blog_id);
         $comment = new Comment();
         $comment->setBlog($blog);
@@ -60,7 +60,7 @@ class CommentController extends Controller
             'form'   => $form->createView()
         ));	
     }
-	
+	/*
     public function new2Action($blog_id)
     {
 		$category_id = $blog_id;
@@ -74,13 +74,11 @@ class CommentController extends Controller
             'form'   => $form->createView()
         ));	
     }	
-	
-	
-	
+	*/	
     /**
      * Create new Comments
      */
-	 /*
+	 
     public function createAction(Request $request, $blog_id)
     {
         if ($request->isXmlHttpRequest()) {
@@ -92,10 +90,10 @@ class CommentController extends Controller
             $form->handleRequest($request);
 			
             if ($form->isValid()) {
-                /*Insert data and commit:/
+               /*Insert data and commit:*/
 				$em->persist($comment);
                 $em->flush();
-				/*Sending response:/
+				/*Sending response:*/
 				$response = new Response();
 				$myData = ("Adde successfull!");
 				$data = json_encode($myData);
@@ -106,12 +104,13 @@ class CommentController extends Controller
         }
         return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
-	*/
+	
+	/*
 	    public function create2Action(Request $request, $blog_id)
     {
 				
         if ($request->isXmlHttpRequest()) {
-							/*Sending response:*/
+							/*Sending response:/
 	
 			
 			$em = $this->getDoctrine()->getEntityManager();
@@ -138,11 +137,11 @@ class CommentController extends Controller
 				
 			//return $response;
 				
-                /*Insert data and commit:*/
+                /Insert data and commit:/
 				$em->persist($comment);
                 $em->flush();
 				
-				/*Sending response:*/
+				/Sending response:/
 				//$response = new Response();
 				//$myData = ($comment);
 				//$data = json_encode($myData);
@@ -153,5 +152,6 @@ class CommentController extends Controller
         }
         return new JsonResponse('no results found', Response::HTTP_NOT_FOUND);
     }
+	*/
 }
 

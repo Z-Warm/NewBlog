@@ -3,7 +3,7 @@
       <div id="information" text ="text"></div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>
-        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.category.id }) }}';   
+        var currurl = '{{ path('BloggerBlogBundle_comment_create' , { 'blog_id' : comment.blog.id }) }}';   
             $(document).ready(function() {
                 $('#commentform').submit( function (response) {
                     var formSerialize = $(this).serialize();
@@ -25,7 +25,7 @@
 {{ form_start(form, {'attr': {'class': 'blogger', 'id':'commentform'} }) }}
  {{ form_widget(form) }}
 <p>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" >
   
 </p>
    

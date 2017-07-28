@@ -27,22 +27,24 @@ class Blog
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    */
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
+    */
     protected $category;
 
     /**
      * @ORM\Column(type="string", length=100)
-     */
+	 * @Assert\NotBlank()
+	*/
     protected $name;
 
     /**
      * @ORM\Column(type="text")
+	 * @Assert\NotBlank()	 
      */
     protected $content;
 

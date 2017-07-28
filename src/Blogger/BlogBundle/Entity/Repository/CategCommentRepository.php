@@ -18,7 +18,7 @@ class CategCommentRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c')
             ->where('c.category = :category_id')
-            ->addOrderBy('c.create_at')
+            ->addOrderBy('c.create_at', 'DESC')
             ->setParameter('category_id', $categoryId);
 
         return $qb->getQuery()

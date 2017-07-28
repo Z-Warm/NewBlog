@@ -14,3 +14,4 @@
 $ cat .gitignore
 *.[oa]
 *~
+.idea

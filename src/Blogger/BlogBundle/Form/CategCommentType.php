@@ -22,6 +22,7 @@ class CategCommentType extends AbstractType
         $builder
             ->add('author')
             ->add('content')
+			
         ;
     }
 
